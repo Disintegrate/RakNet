@@ -30,7 +30,10 @@
 
 
 
-#define MAXIMUM_MTU_SIZE 1492
+// This is needed for steam. Will make connecting faster in general at the cost of decreased
+// efficiency and possibly additional resends for big packets. Since we don't seem to send
+// that many big packets it probably won't make much difference for us.
+#define MAXIMUM_MTU_SIZE 1200
 
 
 #define MINIMUM_MTU_SIZE 400
