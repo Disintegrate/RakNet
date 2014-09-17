@@ -118,8 +118,12 @@ int RakThread::Create( void* start_address( void* ), void *arglist, int priority
 	sched_param param;
 	param.sched_priority=priority;
 	pthread_attr_init( &attr );
-	pthread_attr_setschedparam(&attr, &param);
-
+#ifdef __APPLE__
+    /* If those above us set illegal values we just won't do anything, thus
+       setting the thread to default priority */
+    if (priority >= sched_get_priority_min(SCHED_OTHER) && priority <= sched_get_priority_max(SCHED_OTHER))
+#endif
+      pthread_attr_setschedparam(&attr, &param);
 
 
 
